@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative Developer - 3D Artist &amp; Roblox Developer. Crafting immersive 3D worlds and engaging games on Roblox with creative design and clean code.">
+    <title>Creative Developer | 3D Artist &amp; Roblox Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+  /* Bold Dark Theme Colors */
+  --color-bg-primary: #0a0e27;
+  --color-bg-secondary: #141829;
+  --color-bg-card: #1a1f3a;
+  --color-accent: #a855f7;
+  --color-accent-bright: #c084fc;
+  --color-accent-dark: #7c3aed;
+  --color-pink: #ff006e;
+  --color-pink-bright: #ff1a85;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #a0a0b8;
+  --color-text-muted: #6b7280;
+  
+  /* RGB for opacity control */
+  --accent-rgb: 168, 85, 247;
+  --pink-rgb: 255, 0, 110;
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Shadows */
+  --shadow-glow: 0 0 30px rgba(var(--accent-rgb), 0.3);
+  --shadow-glow-strong: 0 0 50px rgba(var(--accent-rgb), 0.5);
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--color-bg-primary) 0%, #0d1226 50%, var(--color-bg-primary) 100%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Side Navigation */
+.sidenav {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sidenav a {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  border: 2px solid var(--color-text-muted);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.sidenav a:hover,
+.sidenav a.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.6);
+  transform: scale(1.3);
+}
+
+.sidenav a::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+}
+
+.sidenav a:hover::after {
+  opacity: 1;
+}
+
+/* Top Bar */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(10, 14, 39, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.topbar.hidden {
+  transform: translateY(-100%);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.nav-menu {
+  display: flex;
+  gap: var(--space-xl);
+  list-style: none;
+}
+
+.nav-menu a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.nav-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  transition: width 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--color-accent-bright);
+}
+
+.nav-menu a:hover::before {
+  width: 100%;
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-toggle span {
+  width: 28px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: var(--space-3xl) var(--space-lg);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(var(--pink-rgb), 0.1) 0%, transparent 70%);
+  animation: pulse 10s ease-in-out infinite reverse;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 900px;
+  z-index: 2;
+  position: relative;
+}
+
+.greeting {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent-bright);
+  margin-bottom: var(--space-md);
+  animation: slideDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-accent-bright) 50%, var(--color-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.tagline {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2xl);
+  line-height: 1.6;
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.4);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(var(--accent-rgb), 0.6);
+}
+
+.cta-btn:hover::before {
+  left: 100%;
+}
+
+/* Section Styles */
+section {
+  padding: var(--space-3xl) var(--space-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  letter-spacing: -0.02em;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
+}
+
+/* About Section */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.profile-circle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  font-weight: 900;
+  color: white;
+  box-shadow: var(--shadow-glow-strong);
+  position: relative;
+  margin: 0 auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-circle::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  opacity: 0.3;
+  filter: blur(20px);
+  z-index: -1;
+}
+
+.profile-circle:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  transform: scaleY(0);
+  transition: transform 0.3s;
+  transform-origin: bottom;
+}
+
+.highlight-box:hover {
+  transform: translateX(8px);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.3);
+}
+
+.highlight-box:hover::before {
+  transform: scaleY(1);
+}
+
+.highlight-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.highlight-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* Projects Section */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+}
+
+.project-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+  transform-origin: left;
+}
+
+.project-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-accent);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+.project-image {
+  width: 100%;
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--pink-rgb), 0.1) 100%);
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.1);
+}
+
+.project-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(var(--accent-rgb), 0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.project-card:hover .project-image::after {
+  opacity: 1;
+}
+
+.project-info {
+  padding: var(--space-lg);
+}
+
+.project-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-primary);
+}
+
+.project-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.tech-badge {
+  padding: 6px 14px;
+  background: rgba(var(--accent-rgb), 0.15);
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-bright);
+  transition: all 0.3s;
+}
+
+.tech-badge:hover {
+  background: var(--color-accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-accent-bright);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.project-link:hover {
+  gap: 14px;
+  color: var(--color-pink);
+}
+
+/* Contact Section */
+.contact-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-desc {
+  font-size: 20px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2xl);
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.social-card {
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border: 2px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-pink) 100%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.social-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+  box-shadow: 0 15px 50px rgba(var(--accent-rgb), 0.4);
+}
+
+.social-card:hover::before {
+  opacity: 0.1;
+}
+
+.social-icon {
+  font-size: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.social-name {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+footer {
+  background: var(--color-bg-secondary);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.2);
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.3; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .sidenav {
+    display: none;
+  }
+  
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: var(--space-lg);
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+  }
+  
+  .nav-menu.active {
+    display: flex;
+  }
+  
+  .mobile-toggle {
+    display: flex;
+  }
+  
+  .about-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .profile-circle {
+    width: 200px;
+    height: 200px;
+    font-size: 70px;
+  }
+  
+  .topbar {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Side Navigation -->
+    <nav class="sidenav">
+        <a href="#home" data-label="Home"></a>
+        <a href="#about" data-label="About"></a>
+        <a href="#projects" data-label="Work"></a>
+        <a href="#contact" data-label="Contact"></a>
+    </nav>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="logo">CD</div>
+        <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="greeting">Welcome to my creative space</p>
+            <h1>I'm a 3D Artist &amp; Roblox Developer</h1>
+            <p class="tagline">I build immersive 3D worlds and engaging games that bring ideas to life</p>
+            <a href="#projects" class="cta-btn">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="profile-circle">CD</div>
+            <div class="about-text">
+                <p>I'm a passionate 3D artist and Roblox developer with expertise in creating immersive virtual experiences. With strong foundations in 3D modeling, texturing, and Lua programming, I specialize in developing engaging games and creating high-quality 3D assets for the Roblox platform.</p>
+                <p>My work combines creative design with technical excellence, ensuring both visually stunning and mechanically sound gaming experiences. I'm dedicated to optimizing performance, pushing creative boundaries, and building experiences that players love.</p>
+                <div class="highlights-grid">
+                    <div class="highlight-box">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">Expert in Blender 3D modeling and animation</div>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">Proficient Lua programmer and Roblox Studio developer</div>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">Experience creating professional-grade 3D assets</div>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">Strong focus on player experience and optimization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Recent Work</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x400/1a1f3a/a855f7?text=Fantasy+RPG+Game" alt="Fantasy RPG Game">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Fantasy RPG Game</h3>
+                    <p class="project-desc">Full-featured Roblox RPG with custom 3D models, atmospheric textures, NPCs with dialogue systems, quest mechanics, and dynamic combat</p>
+                    <div class="tech-list">
+                        <span class="tech-badge">Roblox Studio</span>
+                        <span class="tech-badge">Lua</span>
+                        <span class="tech-badge">Blender</span>
+                        <span class="tech-badge">Substance Painter</span>
+                        <span class="tech-badge">Custom Scripts</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x400/1a1f3a/a855f7?text=3D+Asset+Pack" alt="3D Environment Asset Pack">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">3D Environment Asset Pack</h3>
+                    <p class="project-desc">Professionally modeled and textured asset collection featuring buildings, vegetation, props, and environmental elements with optimized meshes</p>
+                    <div class="tech-list">
+                        <span class="tech-badge">Blender</span>
+                        <span class="tech-badge">Substance Painter</span>
+                        <span class="tech-badge">UV Mapping</span>
+                        <span class="tech-badge">PBR Texturing</span>
+                        <span class="tech-badge">Normal Maps</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x400/1a1f3a/a855f7?text=Obby+Game" alt="Multiplayer Obby Game">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Multiplayer Obby Game</h3>
+                    <p class="project-desc">Smooth obstacle course game with custom 3D models, progressive difficulty, leaderboards, checkpoints, and engaging mechanics</p>
+                    <div class="tech-list">
+                        <span class="tech-badge">Roblox Studio</span>
+                        <span class="tech-badge">Lua</span>
+                        <span class="tech-badge">3D Design</span>
+                        <span class="tech-badge">Physics</span>
+                        <span class="tech-badge">Networking</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x400/1a1f3a/a855f7?text=Character+Models" alt="Rigged Character Models">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Rigged Character Models</h3>
+                    <p class="project-desc">Professional character models with advanced rigging, blend shapes, facial animations, and ready-to-animate humanoid designs</p>
+                    <div class="tech-list">
+                        <span class="tech-badge">Blender</span>
+                        <span class="tech-badge">Rigging</span>
+                        <span class="tech-badge">Animation</span>
+                        <span class="tech-badge">Bone Structure</span>
+                        <span class="tech-badge">Lua Integration</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x400/1a1f3a/a855f7?text=Terrain+Generator" alt="Procedural Terrain Generator">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Procedural Terrain Generator</h3>
+                    <p class="project-desc">Lua-based procedural system that generates terrain, vegetation, caves, and environmental features with performance optimization</p>
+                    <div class="tech-list">
+                        <span class="tech-badge">Lua</span>
+                        <span class="tech-badge">Roblox Studio</span>
+                        <span class="tech-badge">Procedural Generation</span>
+                        <span class="tech-badge">3D Assets</span>
+                        <span class="tech-badge">Optimization</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p class="contact-desc">Find me online and let's connect! I'm always excited to collaborate on new game development projects and 3D modeling opportunities.</p>
+            <div class="social-grid">
+                <a href="https://www.roblox.com/users/YOUR-ID/profile" class="social-card" target="_blank">
+                    <span class="social-icon">🎮</span>
+                    <span class="social-name">Roblox</span>
+                </a>
+                <a href="https://discord.com/users/YOUR-USER-ID" class="social-card" target="_blank">
+                    <span class="social-icon">💬</span>
+                    <span class="social-name">Discord</span>
+                </a>
+                <a href="https://sketchfab.com/YOUR-USERNAME" class="social-card" target="_blank">
+                    <span class="social-icon">🎨</span>
+                    <span class="social-name">Sketchfab</span>
+                </a>
+                <a href="https://youtube.com/@YOUR-CHANNEL" class="social-card" target="_blank">
+                    <span class="social-icon">📺</span>
+                    <span class="social-name">YouTube</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Creative Developer. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Topbar scroll behavior
+        let lastScroll = 0;
+        const topbar = document.querySelector('.topbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > lastScroll && currentScroll > 500) {
+                topbar.classList.add('hidden');
+            } else {
+                topbar.classList.remove('hidden');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Side navigation active state
+        const sections = document.querySelectorAll('section[id]');
+        const sidenavLinks = document.querySelectorAll('.sidenav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidenavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = 80;
+                        const targetPosition = target.offsetTop - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
